@@ -125,7 +125,7 @@ class ActorController extends AbstractController
         return $this->render('TroiswaPublicBundle:Actor:editActor.html.twig', array( 'form' => $form->createView() ));
     }
 
-    //suppression acteur
+    //suppression acteur(reponse Ajax)
     public function deleteActorAction(Request $request, $unActeur_id)
     {
         $leActeur = $this->getDoctrine()->getRepository('TroiswaPublicBundle:Actor')->findOneById($unActeur_id);
