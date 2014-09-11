@@ -1,0 +1,30 @@
+{% extends 'TroiswaPublicBundle::layout.html.twig' %}
+
+{% block content %}
+
+	{% for unActeur in lesActeurs %}
+
+		{% if unActeur.image is not empty %}
+
+			<div class="row">
+				<div class="col-xs-6 col-md-3">
+					<a href="#" class="thumbnail">
+
+						<img src="{{ asset(unActeur.image.getWebPath() ) }}" style="width:150px; height:150px">
+
+						<div class="caption">
+							<center><h3>{{ unActeur.getNom() }}</h3></center>
+						</div>
+
+					</a>
+				</div>
+
+			</div>
+
+
+
+		{% endif %}
+
+	{% endfor %}
+
+{% endblock %}

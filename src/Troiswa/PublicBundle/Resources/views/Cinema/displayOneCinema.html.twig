@@ -1,0 +1,33 @@
+{% extends 'TroiswaPublicBundle::layout.html.twig' %}
+
+{% block content %}
+
+	<h1>{{ leActeur.nom }}</h1>
+
+	{{ leActeur.naissance | date('m/d/Y') }}
+	<br/>
+
+
+	{{ leActeur.biographie|raw }}
+
+	<br/>
+
+	{#{% if leActeur.active == 1 %}#}
+	{#<button class="label label-success label-tag">visible</button>#}
+	{#{% else %}#}
+	{#<button class="label label-danger label-tag">non-visible</button>#}
+	{#{% endif %}#}
+
+	<br/>
+	<br/>
+
+	<button class="label  ">
+		<a href="{{ path('troiswa_public_editActor', {'unActeur_Slug' :leActeur.slug }) }}">Modifier</a>
+	</button>
+
+	<button class="label  ">
+		<a onclick="return(confirm('Etes-vous sûr de vouloir supprimer cette entrée?'));"
+		   href="{{ path('troiswa_public_deleteActor', {'unActeur_id' :leActeur.id }) }}">Supprimer</a>
+	</button>
+
+{% endblock content %}

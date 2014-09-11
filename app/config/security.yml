@@ -1,0 +1,74 @@
+#sans FOS :
+#security:
+#    providers:
+#        in_memory:
+#            memory:
+#                users:
+#                    admin: { password: admin, roles: "ROLE_ADMIN" }
+#                    user: { password: user, roles: "ROLE_USER" }
+#                    #superAdmin: { password: superAdmin, roles: "ROLE_SUPER_ADMIN" }
+#
+#    role_hierarchy:
+#        ROLE_ADMIN: [ROLE_USER, ROLE_ALLOWED_TO_SWITCH]
+#
+#    encoders:
+#        Symfony\Component\Security\Core\User\User: plaintext
+#
+#    access_control:
+#        - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#        #- { path: ^/films$, roles: ROLE_SUPER_ADMIN }
+#        - { path: ^/, roles: ROLE_ADMIN }
+#
+#
+#    firewalls:
+#        dev:
+#            pattern: ^/(_(profiler|wdt)|css|images|js)/
+#            security: false
+#
+#        login:
+#            pattern: ^/login$
+#            anonymous: true
+#
+#        accueil:
+#            pattern: ^/$
+#            anonymous: true
+#
+#        default:
+#            switch_user: true
+#            pattern: ^/
+#            form_login:
+#                login_path: /login
+#                check_path: /login_check
+#            logout:
+#                path: /logout
+
+
+#avec FOS:
+
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
+    firewalls:
+        main:
+            pattern: ^/
+            form_login:
+                provider: fos_userbundle
+                csrf_provider: form.csrf_provider
+            logout:       true
+            anonymous:    true
+
+    access_control:
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: ROLE_SUPER_ADMIN }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/$, role: ROLE_ADMIN }

@@ -1,0 +1,52 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+<div class="col-md-6">
+    {% if error %}
+        <div>{{ error|trans }}</div>
+    {% endif %}
+
+    <form class="form-signin" action="{{ path("fos_user_security_check") }}" method="post">
+
+
+        {#<h3 class="form-signin-heading">#}
+        {#Connectez vous :#}
+        {#</h3>#}
+
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+        <label for="username">{{ 'security.login.username'|trans }}</label>
+        <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+
+        <label for="password">{{ 'security.login.password'|trans }}</label>
+        <input class="form-control" type="password" id="password" name="_password" required="required" />
+
+
+        <label class="checkbox" for="remember_me">{{ 'security.login.remember_me'|trans }}
+            <input  type="checkbox" id="remember_me" name="_remember_me" value="on" />
+        </label>
+
+        <input class="btn btn-primary btn-block btn-lg" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+    </form>
+</div>
+
+
+{% endblock fos_user_content %}
+
+
+{#<div class="container">#}
+
+    {#<form class="form-signin" role="form">#}
+        {#<h2 class="form-signin-heading">Please sign in</h2>#}
+        {#<input type="email" class="form-control" placeholder="Email address" required autofocus>#}
+        {#<input type="password" class="form-control" placeholder="Password" required>#}
+        {#<label class="checkbox">#}
+            {#<input type="checkbox" value="remember-me"> Remember me#}
+        {#</label>#}
+        {#<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>#}
+    {#</form>#}
+
+{#</div> <!-- /container -->#}

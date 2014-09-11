@@ -1,0 +1,74 @@
+{% extends 'TroiswaPublicBundle::layout.html.twig' %}
+
+{% block content %}
+
+	{% if leActeur is not empty %}
+
+		<div class="col-md-12 well">
+			<h1 class="fa fa-user"> {{ leActeur.nom }}</h1>
+		</div>
+
+
+		<div class="row">
+
+			<div class="col-md-3">
+				{% if leActeur.image is not empty %}
+					<div class="image">
+						<img class="img img-thumbnail" src="{{ asset(leActeur.image.getWebPath() ) }}"
+						     style="width:280px; height:auto">
+					</div>
+				{% else %}
+					<div class="image">
+						pas d'image pour ce acteur
+					</div>
+				{% endif %}
+
+				<div class="row well">
+					<a class="pull-left btn btn-primary btn-md btn-labeled"
+					   href="{{ path('troiswa_public_editActor', {'unActeur_id' :leActeur.id }) }}">
+						<span class="btn-label icon fa fa-pencil"></span>
+						Modifier
+					</a>
+
+					<a class="pull-left btn btn-primary btn-md btn-labeled"
+					   href="{{ path('troiswa_public_deleteActor', {'unActeur_id' :leActeur.id}) }}">
+						<span class="btn-label icon fa fa-times"></span>
+						Supprimer
+					</a>
+				</div>
+
+			</div>
+
+			<div class="well col-md-9 ">
+				<h4>Biographie :</h4> {{ leActeur.biographie | raw }}
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+			</div>
+
+		</div>
+
+		<div class="clear-fix"></div>
+
+		<div class="well">
+			<div class="fa fa-calendar">
+				Date de naissance : {{ leActeur.naissance | date('m/d/Y') }}
+
+			</div>
+		</div>
+
+	{% else %}
+
+		<h1>Arf, l' acteur n'existe pas !</h1>
+
+	{% endif %}
+
+{% endblock content %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	<script src="{{ asset('bundles/troiswapublic/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
+
+{% endblock %}

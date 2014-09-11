@@ -1,0 +1,81 @@
+{% extends 'TroiswaPublicBundle::layout.html.twig' %}
+
+{% block content %}
+
+	<div class="page-header">
+		<div class="row">
+			<h1 class="col-xs-12 col-sm-6 text-center text-left-sm">
+				<i class="fa fa-comments"></i>
+				Commentaires
+			</h1>
+
+			<div class="input-group col-sm-3">
+				<span class="input-group-addon"><div class="fa fa-search"></div></span>
+				<input type="text" class="form-control" placeholder="Recherche dans commentaires">
+			</div>
+
+		</div>
+	</div>
+
+	<div class="panel colourable widget-comments">
+
+		<div class="panel-heading">
+			<span class="panel-title">Les derniers commentaires</span>
+			<ul id="uidemo-tabs-default-demo" class="nav nav-tabs nav-tabs-simple">
+				<li class="active">
+					<a href="#all" data-toggle="tab">Tous <span class="label label-info">4</span></a>
+				</li>
+				<li>
+					<a href="#inwaiting" data-toggle="tab">En cours <span class="badge badge-warning">4</span></a>
+				</li>
+				<li>
+					<a href="#actived" data-toggle="tab">Activés <span class="badge badge-success">0</span></a>
+				</li>
+				<li>
+					<a href="#removed" data-toggle="tab">Désactivés <span class="badge badge-danger">0</span></a>
+				</li>
+			</ul>
+		</div>
+
+		<div class="panel-body">
+			<div class="tab-content">
+				<div class="tab-pane fade active in" id="all">
+					{% for comment in allComments %}
+						<div class="comment">
+							<div class="pull-right">
+								<a class="label label-warning">En cours</a>
+							</div>
+
+							<div class="comment-body">
+								<div class="row"><span class="pull-left"> le {{ comment.dateCreation | date("d/m/Y") }}
+								                                          :</span></div>
+								<div class="comment-by">
+									<a href="#" title="">{{ comment.auteur }}</a>
+									a commenté sur <a href="#" title="">{{ comment.film }}</a></div>
+								<div class="comment-text">
+									{{ comment.contenu }}
+								</div>
+								<div class="comment-actions">
+									<a href="/app.php/comments/remove/19"><i class="fa fa-times"></i>Supprimer</a>
+									<a href="/app.php/comments/validation/19/2"><i class="fa fa-check"></i>Approuver</a>
+									<a href="/app.php/comments/validation/19/0"><i class="fa fa-minus-circle"></i>Désapprouver</a>
+
+									<div class="row"><span
+												class="pull-right">{{ comment.dateCreation | date("d/m/Y") }}</span>
+									</div>
+									<div class="clearfix clear"></div>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+
+
+
+{% endblock content %}

@@ -1,0 +1,11 @@
+troiswa_public:
+    resource: "@TroiswaPublicBundle/Resources/config/routing.yml"
+    prefix:   /
+
+solilokiam_summernote_bundle:
+    resource: "@SolilokiamSummernoteBundle/Resources/config/routing.xml"
+    prefix: /summernote
+
+
+#fos_js_routing:
+#    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

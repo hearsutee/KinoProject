@@ -1,0 +1,197 @@
+troiswa_public_homepage:
+    pattern:  /
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: 'TroiswaPublicBundle:Main:index2.html.twig'
+
+
+troiswa_public_mainSearch:
+    pattern:  /search
+    defaults: { _controller: TroiswaPublicBundle:Main:search }
+
+
+##===============Security=================
+#
+#troiswa_login:
+#    pattern:  /login
+#    defaults: { _controller: TroiswaPublicBundle:Security:login }
+#
+#troiswa_login_check:
+#    pattern:  /login_check
+##    defaults: { _controller: TroiswaPublicBundle:Security:login }
+#
+#troiswa_logout:
+#    pattern:  /logout
+##    defaults: { _controller: TroiswaPublicBundle:Security:login }
+
+
+
+#===============SecurityFosUser=================
+
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profile
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /profile
+
+#===============Film=================
+
+troiswa_public_films:
+    pattern:  /films
+    defaults: { _controller: TroiswaPublicBundle:Film:display }
+
+troiswa_public_addFilm:
+    pattern:  /films/add
+    defaults: { _controller: TroiswaPublicBundle:Film:addFilm }
+
+troiswa_public_OneFilm:
+    pattern:  /films/{unFilm_id}
+    defaults: { _controller: TroiswaPublicBundle:Film:displayOne }
+
+troiswa_public_editFilm:
+    pattern:  /films/edit/{unFilm_id}
+    defaults: { _controller: TroiswaPublicBundle:Film:editFilm }
+
+troiswa_public_deleteFilm:
+    pattern:  /films/delete/{unFilm_id}
+    defaults: { _controller: TroiswaPublicBundle:Film:deleteFilm }
+
+#===============Director=================
+
+troiswa_public_galleryDirectors:
+        pattern:  /directors/gallery
+        defaults: { _controller: TroiswaPublicBundle:Image:displayAllDirectorsImages }
+
+troiswa_public_directors:
+    pattern:  /directors
+    defaults: { _controller: TroiswaPublicBundle:Director:display }
+
+troiswa_public_addDirector:
+        pattern:  /directors/add
+        defaults: { _controller: TroiswaPublicBundle:Director:addDirector }
+
+troiswa_public_OneDirector:
+    pattern:  /directors/{unRealisateur_id}
+    defaults: { _controller: TroiswaPublicBundle:Director:displayOne }
+
+troiswa_public_editDirector:
+    pattern:  /directors/edit/{unRealisateur_id}
+    defaults: { _controller: TroiswaPublicBundle:Director:editDirector }
+
+troiswa_public_deleteDirector:
+    pattern:  /directors/delete/{unRealisateur_id}
+    defaults: { _controller: TroiswaPublicBundle:Director:deleteDirector }
+
+    #===============Cinema=================
+
+troiswa_public_galleryCinemas:
+    pattern:  /cinemas/gallery
+    defaults: { _controller: TroiswaPublicBundle:Image:displayAllCinemasImages }
+
+troiswa_public_cinemas:
+    pattern:  /cinemas
+    defaults: { _controller: TroiswaPublicBundle:Cinema:display }
+
+troiswa_public_addCinema:
+    pattern:  /cinemas/add
+    defaults: { _controller: TroiswaPublicBundle:Cinema:addCinema }
+
+troiswa_public_OneCinema:
+    pattern:  /cinemas/{unRealisateur_id}
+    defaults: { _controller: TroiswaPublicBundle:Cinema:displayOne }
+
+troiswa_public_editCinema:
+    pattern:  /cinemas/edit/{unRealisateur_id}
+    defaults: { _controller: TroiswaPublicBundle:Cinema:editCinema }
+
+troiswa_public_deleteCinema:
+    pattern:  /cinemas/delete/{unRealisateur_id}
+    defaults: { _controller: TroiswaPublicBundle:Cinema:deleteCinema }
+
+
+#===============Tag=================
+
+
+
+troiswa_public_addTag:
+        pattern:  /tags/add
+        defaults: { _controller: TroiswaPublicBundle:Tag:addTag }
+
+
+
+#===============Actor=================
+
+troiswa_public_galleryActors:
+        pattern:  /actors/gallery
+        defaults: { _controller: TroiswaPublicBundle:Image:displayAllActorsImages }
+
+troiswa_public_actors:
+    pattern:  /actors
+    defaults: { _controller: TroiswaPublicBundle:Actor:display }
+
+troiswa_public_addActor:
+        pattern:  /actors/add
+        defaults: { _controller: TroiswaPublicBundle:Actor:addActor }
+
+troiswa_public_OneActor:
+    pattern:  /actors/{unActeur_id}
+    defaults: { _controller: TroiswaPublicBundle:Actor:displayOne }
+
+troiswa_public_editActor:
+    pattern:  /actors/edit/{unActeur_id}
+    defaults: { _controller: TroiswaPublicBundle:Actor:editActor }
+
+troiswa_public_deleteActor:
+    pattern:  /actors/delete/{unActeur_id}
+    defaults: { _controller: TroiswaPublicBundle:Actor:deleteActor }
+
+
+
+
+#===============Comment=================
+
+troiswa_public_allComments:
+    pattern:  /comments
+    defaults: { _controller: TroiswaPublicBundle:Comment:displayAll }
+
+troiswa_public_addComment:
+    pattern:  /films/comment/add
+    defaults: { _controller: TroiswaPublicBundle:Comment:addComment }
+
+troiswa_public_saveComment:
+    pattern:  /comment/save/{film_id}
+    defaults: { _controller: TroiswaPublicBundle:Comment:saveComment }
+
+troiswa_public_deleteComment:
+    pattern:  /comment/delete/{unComment_id}
+    defaults: { _controller: TroiswaPublicBundle:Comment:deleteComment }
+
+troiswa_public_editComment:
+    pattern:  /comment/edit/{unComment_id}
+    defaults: { _controller: TroiswaPublicBundle:Comment:editComment }
+
+
+#===============Shopping=================
+
+troiswa_public_shopping:
+    pattern:  /films/shopping
+    defaults: { _controller: TroiswaPublicBundle:Shopping:display }
+
+#===============Seance=================
+
+troiswa_public_OneFilmSeances:
+    pattern:  /films/search/{unFilm_id}
+    defaults: { _controller: TroiswaPublicBundle:Seance:displaySeancesByCp }

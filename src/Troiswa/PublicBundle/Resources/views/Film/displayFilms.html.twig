@@ -1,0 +1,491 @@
+{% extends 'TroiswaPublicBundle::layout.html.twig' %}
+
+{% block content %}
+
+	{% for flash in app.session.flashbag.get('supp') %}
+		<div class="alert alert-success">
+			<h1>{{ flash }}</h1>
+		</div>
+	{% endfor %}
+
+	<div class="page-header">
+
+		<h1 class="col-xs-12 col-sm-6 text-center text-left-sm">
+			<i class="fa fa-film"></i>
+			Les films
+			{#AFAIRE compter le nb de films des trois requetes#}
+			{#<span  class="label label-danger">{{ films | length }}</span>#}
+		</h1>
+
+		<div class="input-group col-sm-3">
+			<span class="input-group-addon"><div class="fa fa-search"></div></span>
+			<input type="text" class="form-control" placeholder="Search">
+		</div>
+
+	</div>
+
+
+	<div class="row well">
+		<a class="pull-left btn btn-primary btn-md btn-labeled" href="{{ path('troiswa_public_addFilm') }}">
+			<span class="btn-label icon fa fa-plus"></span>
+			Ajouter un film
+		</a>
+
+
+	</div>
+
+	<ul class="nav nav-tabs pull-right">
+		<li class="active">
+			<a href="#archived" data-toggle="tab">Archivés <span class="badge badge-danger">
+                    {#{{ entities_archived.getTotalItemCount}}#}
+                </span></a>
+		</li>
+		<li>
+			<a href="#actus" data-toggle="tab">a l'affiche <span class="label label-success">
+                    {#{{ entities.getTotalItemCount}}#}
+                </span></a>
+		</li>
+		<li>
+			<a href="#next" data-toggle="tab">Prochainement <span class="badge badge-info">
+                    {#{{ entities_next.getTotalItemCount}}#}
+                </span></a>
+		</li>
+
+	</ul>
+
+	<div class="tab-content">
+	<div class="tab-pane fade in active" id="archived">
+
+		<div class="table-primary">
+
+
+			<div class="table-caption">
+
+
+				{#pagination:#}
+				<div class="navigation">
+					{{ knp_pagination_render(archive) }}
+				</div>
+
+			</div>
+			<div class="table-responsive">
+				<table class="table">
+					<thead>
+					<tr>
+						<th>Photo</th>
+						<th>Titre</th>
+						<th>Date de sortie</th>
+						<th>Synopsis</th>
+						<th>Acteurs</th>
+						<th>Actions</th>
+					</tr>
+					</thead>
+
+					<tbody>
+
+					{% for unfilm in archive %}
+
+						<tr>
+							<td>
+
+								{# PHOTO : lien cliquable vers l'affichage du film concerné : #}
+								<a href="{{ path('troiswa_public_OneFilm', {'unFilm_id' :unfilm.id }) }}">
+
+									{% if unfilm.image is not empty %}
+										<img class="img" src="{{ asset(unfilm.image.getWebPath() ) }}"
+										     style="width:140px; height:auto">
+									{% endif %}
+
+								</a>
+
+							</td>
+							{# TITRE: lien cliquable vers l'affichage de l'acteur concerné : #}
+							<td class="text-success">
+								<a href="{{ path('troiswa_public_OneFilm', {'unFilm_id' :unfilm.id }) }}">
+									<p>{{ unfilm.titre }}</p>
+								</a>
+							</td>
+
+							{# DATE SORTIE: #}
+							<td>
+								{{ unfilm.dateCreation | date('m/d/Y') }}
+							</td>
+
+							{# BIOGRAPHIE: #}
+							<td class="smalltext col-md-4">
+
+								{{ unfilm.contenu | truncate(320, true, '...') | raw }}
+
+
+							</td>
+
+							{# ACTEURS : lien cliquable vers l'affichage du film concerné   : #}
+							<td>
+								<select>
+									<option disabled selected id="ff">Voir les acteurs</option>
+									{% for acteur in unfilm.acteurs %}
+										<option>
+											{#<button class="label label-primary ng-scope fa fa-user">{#}
+											{{ acteur.nom }}
+										</option>
+
+
+
+
+									{% endfor %}
+								</select>
+								<style>
+									#ff {
+										font-size: 0px !important;
+
+									}
+								</style>
+
+							</td>
+
+							<td class="col-md-1">
+								{# ACTIONS :modifier, supprimer  : #}
+
+								<a class="pull-left btn btn-primary btn-xs btn-labeled"
+								   href="{{ path('troiswa_public_editFilm', {'unFilm_id' :unfilm.id }) }}">
+									<span class="btn-label icon fa fa-pencil"></span>
+									Modifier
+								</a>
+
+								<a class="pull-left btn btn-primary btn-xs btn-labeled remove"
+								   href="{{ path('troiswa_public_deleteFilm', {'unFilm_id' :unfilm.id }) }}">
+									<span class="btn-label icon fa fa-times"></span>
+									Supprimer
+								</a>
+
+							</td>
+
+
+
+							{#{% if unfilm.active == 1 %}#}
+							{#<td class="center"><button class="label label-success label-tag">visible</button></td>#}
+							{#{% else %}#}
+							{#<td class="center"><button class="label label-danger label-tag">non-visible</button></td>#}
+							{#{% endif %}#}
+
+						</tr>
+
+					{% endfor %}
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+
+	</div>
+	<div class="tab-pane fade in" id="actus">
+		<div class="table-primary">
+
+
+			<div class="table-caption">
+
+
+				{#pagination:#}
+				<div class="navigation">
+					{{ knp_pagination_render(affiche) }}
+				</div>
+
+			</div>
+			<div class="table-responsive">
+				<table class="table">
+					<thead>
+					<tr>
+						<th>Photo</th>
+						<th>Titre</th>
+						<th>Date de sortie</th>
+						<th>Synopsis</th>
+						<th>Acteurs</th>
+						<th>Actions</th>
+					</tr>
+					</thead>
+
+					<tbody>
+
+					{% for unfilm in affiche %}
+
+						<tr>
+							<td>
+
+								{# PHOTO : lien cliquable vers l'affichage du film concerné : #}
+								<a href="{{ path('troiswa_public_OneFilm', {'unFilm_id' :unfilm.id }) }}">
+
+									{% if unfilm.image is not empty %}
+
+										<img class="img" src="{{ asset(unfilm.image.getWebPath() ) }}"
+										     style="width:140px; height:auto">
+									{% endif %}
+
+								</a>
+
+							</td>
+							{# TITRE: lien cliquable vers l'affichage de l'acteur concerné : #}
+							<td class="text-success">
+								<a href="{{ path('troiswa_public_OneFilm', {'unFilm_id' :unfilm.id }) }}">
+									<p>{{ unfilm.titre }}</p>
+								</a>
+							</td>
+
+							{# DATE SORTIE: #}
+							<td>
+								{{ unfilm.dateCreation | date('m/d/Y') }}
+							</td>
+
+							{# BIOGRAPHIE: #}
+							<td class="smalltext col-md-4">
+
+								{{ unfilm.contenu | truncate(320, true, '...') | raw }}
+
+
+							</td>
+
+							{# ACTEURS : lien cliquable vers l'affichage du film concerné   : #}
+							<td>
+								<select>
+									<option disabled selected id="ff">Voir les acteurs</option>
+									{% for acteur in unfilm.acteurs %}
+										<option>
+											{#<button class="label label-primary ng-scope fa fa-user">{#}
+											{{ acteur.nom }}
+										</option>
+
+
+
+
+									{% endfor %}
+								</select>
+								<style>
+									#ff {
+										font-size: 0px !important;
+
+									}
+								</style>
+
+							</td>
+
+							<td class="col-md-1">
+								{# ACTIONS :modifier, supprimer  : #}
+
+								<a class="pull-left btn btn-primary btn-xs btn-labeled"
+								   href="{{ path('troiswa_public_editFilm', {'unFilm_id' :unfilm.id }) }}">
+									<span class="btn-label icon fa fa-pencil"></span>
+									Modifier
+								</a>
+
+								<a class="pull-left btn btn-primary btn-xs btn-labeled remove"
+								   href="{{ path('troiswa_public_deleteFilm', {'unFilm_id' :unfilm.id }) }}">
+									<span class="btn-label icon fa fa-times"></span>
+									Supprimer
+								</a>
+
+							</td>
+
+
+
+							{#{% if unfilm.active == 1 %}#}
+							{#<td class="center"><button class="label label-success label-tag">visible</button></td>#}
+							{#{% else %}#}
+							{#<td class="center"><button class="label label-danger label-tag">non-visible</button></td>#}
+							{#{% endif %}#}
+
+						</tr>
+
+					{% endfor %}
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+
+		<style>
+			table {
+				table-layout: fixed;
+				word-wrap: break-word;
+			}
+		</style>
+
+	</div>
+
+
+	<div class="tab-pane fade in" id="next">
+
+		<div class="table-primary">
+
+
+			<div class="table-caption">
+
+
+				{#pagination:#}
+				<div class="navigation">
+					{{ knp_pagination_render(prochainement) }}
+				</div>
+
+			</div>
+			<div class="table-responsive">
+				<table class="table">
+					<thead>
+					<tr>
+						<th>Photo</th>
+						<th>Titre</th>
+						<th>Date de sortie</th>
+						<th>Synopsis</th>
+						<th>Acteurs</th>
+						<th>Actions</th>
+					</tr>
+					</thead>
+
+					<tbody>
+
+					{% for unfilm in prochainement %}
+
+						<tr>
+							<td>
+
+								{# PHOTO : lien cliquable vers l'affichage du film concerné : #}
+								<a href="{{ path('troiswa_public_OneFilm', {'unFilm_id' :unfilm.id }) }}">
+
+									{% if unfilm.image is not empty %}
+										<img class="img" src="{{ asset(unfilm.image.getWebPath() ) }}"
+										     style="width:140px; height:auto">
+									{% endif %}
+
+								</a>
+
+							</td>
+							{# TITRE: lien cliquable vers l'affichage de l'acteur concerné : #}
+							<td class="text-success">
+								<a href="{{ path('troiswa_public_OneFilm', {'unFilm_id' :unfilm.id }) }}">
+									<p>{{ unfilm.titre }}</p>
+								</a>
+							</td>
+
+							{# DATE SORTIE: #}
+							<td>
+								{{ unfilm.dateCreation | date('m/d/Y') }}
+							</td>
+
+							{# BIOGRAPHIE: #}
+							<td class="smalltext col-md-4">
+
+								{{ unfilm.contenu | truncate(320, true, '...') | raw }}
+
+
+							</td>
+
+							{# ACTEURS : lien cliquable vers l'affichage du film concerné   : #}
+							<td>
+								<select>
+									<option disabled selected id="ff">Voir les acteurs</option>
+									{% for acteur in unfilm.acteurs %}
+										<option>
+											{#<button class="label label-primary ng-scope fa fa-user">{#}
+											{{ acteur.nom }}
+										</option>
+
+
+
+
+									{% endfor %}
+								</select>
+								<style>
+									#ff {
+										font-size: 0px !important;
+
+									}
+								</style>
+
+							</td>
+
+							<td class="col-md-1">
+								{# ACTIONS :modifier, supprimer  : #}
+
+								<a class="pull-left btn btn-primary btn-xs btn-labeled"
+								   href="{{ path('troiswa_public_editFilm', {'unFilm_id' :unfilm.id }) }}">
+									<span class="btn-label icon fa fa-pencil"></span>
+									Modifier
+								</a>
+
+								<a class="pull-left btn btn-primary btn-xs btn-labeled remove"
+								   href="{{ path('troiswa_public_deleteFilm', {'unFilm_id' :unfilm.id }) }}">
+									<span class="btn-label icon fa fa-times"></span>
+									Supprimer
+								</a>
+
+							</td>
+
+
+
+							{#{% if unfilm.active == 1 %}#}
+							{#<td class="center"><button class="label label-success label-tag">visible</button></td>#}
+							{#{% else %}#}
+							{#<td class="center"><button class="label label-danger label-tag">non-visible</button></td>#}
+							{#{% endif %}#}
+
+						</tr>
+
+					{% endfor %}
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+
+	</div>
+
+
+	</div>
+
+
+
+
+
+
+
+{% endblock %}
+
+
+
+
+
+ {% block javascripts %}
+	 {{ parent() }}
+
+	 {#supression film en Ajax :#}
+	 <script>
+		 $(document).ready(function ()
+		 {
+			 $(".remove").click(function (e)
+			 {
+
+				 e.preventDefault();
+				 if (confirm("Voulez vous vraiment supprimer ce film ?"))
+				 {
+
+					 var link = $(this);
+
+					 $.ajax({
+						 url: link.attr('href'),
+						 dataType: "json"
+					 })
+							 .done(function (data)
+							 {
+
+								 link.parents('tr').fadeOut(function ()
+								 {
+									 $(this).remove();
+								 })
+							 });
+				 }
+				 return false;
+			 })
+		 });
+
+	 </script>
+ {% endblock javascripts %}

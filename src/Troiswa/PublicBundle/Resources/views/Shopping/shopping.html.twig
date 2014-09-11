@@ -1,0 +1,108 @@
+<ul class="breadcrumb breadcrumb-page">
+	{% extends 'TroiswaPublicBundle::layout.html.twig' %}
+
+	{% block content %}
+
+
+	<div class="breadcrumb-label text-light-gray">Où êtes-vous?</div>
+	<div class='clearfix'></div>
+
+</ul>
+<div class="page-header">
+	<div class="row">
+
+
+		<h1 class="col-xs-12 col-sm-6 text-center text-left-sm">
+			&nbsp;&nbsp; <i class="fa fa-shopping-cart"></i> Récapitulatif de votre commande </h1>
+
+		<div class="col-xs-12 col-sm-6">
+			<div class="row">
+				<hr class="visible-xs no-grid-gutter-h">
+				<div class="visible-xs clearfix form-group-margin"></div>
+				<form action="/app.php/search" id="form_search" method="post" role="search"
+				      class="pull-right col-xs-12 col-sm-8">
+					<div class="input-group no-margin">
+						<span class="input-group-addon"
+						      style="border:none;background: #fff;background: rgba(0,0,0,.05);"><i
+									class="fa fa-search"></i></span>
+						<input type="search" id="search_input" name="search" required="required" id="search_input"
+						       placeholder="Rechercher un film, une catégorie, un tag, un réalisateur, un acteur..."
+						       class="search_input form-control no-padding-hr" value=""
+						       data-url="/app.php/search?ajax=true" class="form-control" name="field"/>
+						<input type="hidden" id="_token" name="_token"
+						       value="0SzUR4_vZaKKLV6zxroZqTFj1G8LomApFxxQHRhgRuk" class="form-control" name="field"/>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-md-12">
+
+
+	</div>
+
+
+	<div class="panel invoice">
+		<div class="invoice-header">
+			<div class="panel colourable">
+				<div class="panel-heading">
+					<a href="/app.php/movies/exportinvoice" class="pull-right btn btn-primary btn-lg btn-labeled">
+						<span class="btn-label icon fa fa-print"></span> Imprimer ma commande
+					</a>
+
+					<div class="clear clearfix"></div>
+				</div>
+				<div class="panel-body">
+
+					<table class="table table-striped">
+						<thead>
+						<tr>
+							<th>#</th>
+							<th>Référence</th>
+							<th>Titre</th>
+							<th>Quantité</th>
+							<th>Prix €</th>
+							<th>Action</th>
+						</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+						<tfoot>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td><h5><strong>Total HT:</strong></h5></td>
+							<td><h5>0 €</h5></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td><h3><strong>Total TTC:</strong></h3></td>
+							<td><h3>0.00 €</h3></td>
+						</tr>
+						</tfoot>
+					</table>
+				</div>
+				<div class="panel-footer">
+					<div class="row well">
+						<a href="/app.php/movies/new" class="pull-right btn btn-danger btn-lg btn-labeled">
+							<span class="btn-label icon fa fa-shopping-cart"></span> Régler votre commande
+						</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- / .invoice-table -->
+
+		{% endblock content %}

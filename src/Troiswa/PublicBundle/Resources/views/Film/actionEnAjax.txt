@@ -1,0 +1,76 @@
+Requete Ajax :
+Dans mon cas sur le bouton supprimer d'un film, dans la vue que affiche tous les films.
+
+
+
+//displayFilms.html.twig
+apres le/les blocks :
+--------------------------------------
+
+
+{% block javascripts %}
+     {{  parent() }}
+
+
+
+     <script>
+         $(document).ready(function()
+         {
+             $(".remove").click(function(e)
+             {
+
+                 e.preventDefault();
+                 if( confirm("Voulez vous vraiment supprimer ce film ?") )
+                 {
+
+                     var btn = $(this).children('a');
+
+
+                     $.ajax({
+                         url: btn.attr('href'),
+                         dataType:"json"
+                            })
+                             .done(function(data)
+                                    {
+                                        btn.parents('tr').fadeOut(function(){
+                                            $(this).remove;
+                                        })
+                                    });
+                 }
+                 return false ;
+             })
+         });
+
+     </script>
+{% endblock javascripts %}
+
+
+
+
+
+dans le controller FilmController:
+
+
+---------------------------------------------------
+
+public function deleteFilmAction($unFilm_id,Request $request)
+    {
+        $leFilm = $this->getDoctrine()->getRepository('TroiswaPublicBundle:Film')->findOneById($unFilm_id);
+
+        $em = $this -> getDoctrine() -> getManager();
+        $em -> remove($leFilm);
+        $em -> flush();
+
+        $this -> get('session') -> getFlashBag() -> add('supp','le film à eté supprimé !');
+
+
+// si requete Ajax:
+
+        if($request->isXmlHttpRequest())
+        {
+            return new JsonResponse(true);
+        }
+        else
+
+        return $this->redirect($this->generateUrl('troiswa_public_films'));
+    }

@@ -1,0 +1,121 @@
+//Creation d'un SecurityController:
+--------------------------------------------------
+<?php
+
+namespace Troiswa\PublicBundle\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\SecurityContext;
+
+class SecurityController extends Controller
+{
+
+    public function loginAction(Request $request)
+    {
+        $session = $request->getSession();
+        // get the login error if there is one
+        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR))
+        {
+         $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
+        } else
+        {
+            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
+            $session->remove(SecurityContext::AUTHENTICATION_ERROR);
+        }
+
+
+
+        return $this->render('TroiswaPublicBundle:Security:login.html.twig', array(
+            // last username entered by the user
+            'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+            'error'         => $error,
+        ));
+    }
+}
+//routing.yml
+-----------------------------------------------
+
+
+troiswa_login:
+    pattern:  /login
+    defaults: { _controller: TroiswaPublicBundle:Security:login }
+
+troiswa_login_check:
+    pattern:  /login_check
+#    defaults: { _controller: TroiswaPublicBundle:Security:login }
+
+troiswa_logout:
+    pattern:  /logout
+#    defaults: { _controller: TroiswaPublicBundle:Security:login }
+
+
+//security.yml :
+---------------------------------------------
+
+security:
+    providers:
+        in_memory:
+            memory:
+                users:
+                    admin: { password: admin, roles: "ROLE_ADMIN" }
+                    user: { password: user, roles: "ROLE_USER" }
+                    #superAdmin: { password: superAdmin, roles: "ROLE_SUPER_ADMIN" }
+
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_USER, ROLE_ALLOWED_TO_SWITCH]
+
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+
+    access_control:
+        - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        #- { path: ^/films$, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/, roles: ROLE_ADMIN }
+
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        login:
+            pattern: ^/login$
+            anonymous: true
+
+        accueil:
+            pattern: ^/$
+            anonymous: true
+
+        default:
+            switch_user: true
+            pattern: ^/
+            form_login:
+                login_path: /login
+                check_path: /login_check
+            logout:
+                path: /logout
+
+//login.html.twig
+---------------------------------------------
+
+{% if error %}
+    <div>{{ error.message }}</div>
+{% endif %}
+
+<form action="{{ path('troiswa_login_check') }}" method="post">
+    <label for="username">Login :</label>
+    <input type="text" id="username" name="_username" value="{{ last_username }}" />
+
+    <label for="password">Mot de passe :</label>
+    <input type="password" id="password" name="_password" />
+
+    <button type="submit">login</button>
+</form>
+
+
+
+
+
+

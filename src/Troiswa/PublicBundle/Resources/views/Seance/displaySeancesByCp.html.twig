@@ -1,0 +1,151 @@
+{#{% extends 'TroiswaPublicBundle::layout.html.twig' %}#}
+
+{% for seance in seances %}
+	<div class="row">
+		<div class="row well">
+
+			<h2>{{ seance.getCinema.nom }}</h2>
+			{{ seance.getCinema.adresse }}
+			{{ seance.getCinema.cp }}
+
+			<h4>{{ seance.dateSeance | date("m/d/Y") }}</h4>
+
+		</div>
+	</div>
+
+
+{% endfor %}
+
+    {#{% for flash in app.session.flashbag.get('supp') %}#}
+        {#<div class="alert alert-success">#}
+            {#<h1>{{ flash }}</h1>#}
+        {#</div>#}
+    {#{% endfor %}#}
+
+    {#<div class="page-header">#}
+
+        {#<h1 class="col-xs-12 col-sm-6 text-center text-left-sm">#}
+            {#<i class="fa fa-users"></i>#}
+            {#Les acteurs#}
+            {#<span  class="label label-danger">{{ acteurs | length }}</span>#}
+        {#</h1>#}
+
+        {#<div class="input-group col-sm-3">#}
+            {#<span class="input-group-addon"><div class="fa fa-search"></div></span>#}
+            {#<input type="text" class="form-control" placeholder="Search">#}
+        {#</div>#}
+
+
+    {#</div>#}
+
+
+    {#<div class="row well">#}
+        {#<a class="pull-left btn btn-primary btn-md btn-labeled" href="{{ path('troiswa_public_addActor') }}">#}
+            {#<span class="btn-label icon fa fa-plus"></span>#}
+            {#Ajouter un acteur#}
+        {#</a>#}
+
+    {#</div>#}
+
+
+
+    {#<div class="table-primary">#}
+
+
+        {#<div class="table-caption">#}
+
+
+            {#&#123;&#35;pagination:&#35;&#125;#}
+            {#<div class="navigation">#}
+                {#{{ knp_pagination_render(acteurs) }}#}
+            {#</div>#}
+
+        {#</div>#}
+
+
+        {#<table border="10" class="table table-bordered">#}
+            {#<thead>#}
+            {#<tr>#}
+                {#<th>Photo</th>#}
+                {#<th>Nom</th>#}
+                {#<th>Date de naissance</th>#}
+                {#<th>Biographie</th>#}
+                {#<th>Films</th>#}
+                {#<th>Actions</th>#}
+            {#</tr>#}
+            {#</thead>#}
+
+            {#<tbody>#}
+
+            {#{% for unacteur in acteurs %}#}
+
+                {#<tr>#}
+                    {#<td>#}
+                        {#&#123;&#35; PHOTO : lien cliquable vers l'affichage de l'acteur concerné : &#35;&#125;#}
+                        {#<a href="{{ path('troiswa_public_OneActor', {'unActeur_Slug' :unacteur.slug }) }}">#}
+
+                            {#{% if unacteur.image is not empty %}#}
+                                {#<img class="img" src="{{ asset(unacteur.image.getWebPath() ) }}"#}
+                                     {#style="width:100px; height:auto">#}
+                            {#{% endif %}#}
+
+                        {#</a>#}
+
+                    {#</td>#}
+                    {#&#123;&#35; NOM : lien cliquable vers l'affichage de l'acteur concerné : &#35;&#125;#}
+                    {#<td>#}
+                        {#<a href="{{ path('troiswa_public_OneActor', {'unActeur_Slug' :unacteur.slug }) }}">#}
+                            {#<h3>{{ unacteur.nom }}</h3>#}
+                        {#</a>#}
+                    {#</td>#}
+
+                    {#&#123;&#35; NAISSANCE: &#35;&#125;#}
+                    {#<td>#}
+                        {#{{ unacteur.naissance | date('m/d/Y') }}#}
+                    {#</td>#}
+
+                    {#&#123;&#35; BIOGRAPHIE: &#35;&#125;#}
+                    {#<td class="smalltext">#}
+                        {#{{ unacteur.biographie | truncate(1000, true, '...') | raw }}#}
+                    {#</td>#}
+
+                    {#&#123;&#35; FILMS : lien cliquable vers l'affichage du film concerné   : &#35;&#125;#}
+                    {#<td>#}
+                        {#{% for film in unacteur.films %}#}
+                            {#<button class="label label-primary ng-scope fa fa-film">{{ film.titre }}#}
+                                {#({{ film.dateCreation | date('Y') }})#}
+                            {#</button>#}
+                        {#{% endfor %}#}
+                    {#</td>#}
+
+                    {#<td>#}
+                        {#&#123;&#35; ACTIONS :modifier, supprimer  : &#35;&#125;#}
+
+                        {#<button class="label fa fa-pencil  ">#}
+                            {#<a href="{{ path('troiswa_public_editActor', {'unActeur_Slug' :unacteur.slug }) }}">Modifier</a>#}
+                        {#</button>#}
+
+                        {#<button class="label fa fa-times ">#}
+                            {#<a onclick="return(confirm('Etes-vous sûr de vouloir supprimer cette entrée?'));"#}
+                               {#href="{{ path('troiswa_public_deleteActor', {'unActeur_id' :unacteur.id }) }}">Supprimer</a>#}
+                        {#</button>#}
+
+                    {#</td>#}
+
+
+
+                    {#&#123;&#35;{% if unacteur.active == 1 %}&#35;&#125;#}
+                    {#&#123;&#35;<td class="center"><button class="label label-success label-tag">visible</button></td>&#35;&#125;#}
+                    {#&#123;&#35;{% else %}&#35;&#125;#}
+                    {#&#123;&#35;<td class="center"><button class="label label-danger label-tag">non-visible</button></td>&#35;&#125;#}
+                    {#&#123;&#35;{% endif %}&#35;&#125;#}
+
+                {#</tr>#}
+
+            {#{% endfor %}#}
+
+            {#</tbody>#}
+        {#</table>#}
+
+
+    {#</div>#}

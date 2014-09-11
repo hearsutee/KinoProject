@@ -1,0 +1,78 @@
+{#============================comments===============================#}
+
+
+<div class="panel panel-warning" id="dashboard-recent">
+	<div class="panel-heading">
+		<span class="panel-title"><i class="panel-title-icon fa fa-fire text-danger"></i>Commentaires recents</span>
+		<ul class="nav nav-tabs nav-tabs-xs">
+			<li class="active">
+				<a href="#dashboard-recent-comments" data-toggle="tab">Comments</a>
+			</li>
+			{#<li>#}
+			{#<a href="#dashboard-recent-threads" data-toggle="tab">Forum threads</a>#}
+			{#</li>#}
+		</ul>
+	</div>
+	<!-- / .panel-heading -->
+	<div class="tab-content">
+
+		<!-- Comments widget -->
+
+		<!-- Without padding -->
+		<div class="widget-comments panel-body tab-pane no-padding fade active in"
+		     id="dashboard-recent-comments">
+
+			{% for comment in comments %}
+
+
+			<!--  without vertical padding -->
+			<div class=" no-padding-vr">
+				<div class="comment">
+					<img src="assets/demo/avatars/5.jpg" alt="" class="comment-avatar">
+
+					<div class="comment-body">
+						<div class="comment-by">
+
+
+							<a href="#" title="">
+
+								{#auteur commentaire#}
+								{{ comment.auteur }}
+
+							</a> au sujet du film :
+							<a href="{{ path('troiswa_public_OneFilm', {'unFilm_id' : comment.film.id }) }}">
+
+								{#film en lien avec le commentaire#}
+								{{ comment.film.titre }}
+
+							</a>
+						</div>
+						<div class="comment-text">
+
+							{#contenu du commentaire#}
+							{{ comment.contenu }}
+
+						</div>
+						<div class="comment-actions">
+
+							<a onclick="return(confirm('Etes-vous sûr de vouloir supprimer cette entrée?'));"
+
+							   href="{{ path('troiswa_public_deleteComment',
+							   {'unComment_id' : comment.id }) }}">
+
+
+								<i class="fa fa-times">Remove</i>
+							</a>
+
+							<a href="#"> <i class="fa fa-pencil"></i>Edit</a>
+							<span class="pull-right">2 hours ago</span>
+						</div>
+					</div>
+					<!-- / .comment-body -->
+				</div>
+				<!-- / .comment -->
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>

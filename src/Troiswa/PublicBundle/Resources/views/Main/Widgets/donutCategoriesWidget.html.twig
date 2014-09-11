@@ -1,0 +1,117 @@
+{#&#123;&#35;Morris.js Donut&#35;&#125;#}
+    {#<!-- Javascript -->#}
+    {#<script>#}
+        {#init.push(function () {#}
+            {#Morris.Donut({#}
+                {#element: 'hero-donut',#}
+                {#data: [#}
+
+                    {#{% for cat in categories %}#}
+
+                    {#{% set pourcentage = ( (cat.films|length) / nbFilms * 100 )  %}#}
+
+                    {#{ label: '{{ cat.titre }}', value: {{ pourcentage | round }} },#}
+
+                    {#{% endfor %}#}
+
+
+
+{#//                    { label: 'Jam', value: 25 },#}
+{#//                    { label: 'Frosted', value: 40 },#}
+{#//                    { label: 'Custard', value: 25 },#}
+{#//                    { label: 'Sugar', value: 10 }#}
+                {#],#}
+                {#colors: PixelAdmin.settings.consts.COLORS,#}
+                {#resize: true,#}
+                {#labelColor: '#888',#}
+                {#formatter: function (y) {#}
+                    {#return y + "%"#}
+                {#}#}
+            {#});#}
+        {#});#}
+    {#</script>#}
+    {#<!-- / Javascript -->#}
+
+    {#<div class="panel panel-body">#}
+        {#<div class="graph-container">#}
+
+            {#<div id="hero-donut" class="graph">#}
+
+            {#</div>#}
+
+        {#</div>#}
+    {#</div>#}
+
+
+<!-- Javascript -->
+<script>
+	init.push(function ()
+	{
+		// Doughnut Chart Data
+		var doughnutChartData = [
+			{% for cat in categories %}
+
+			{% set pourcentage = ( (cat.films|length) / nbFilms * 100 )  %}
+
+			{ label: '{{ cat.titre }}', data: {{ pourcentage | round }} },
+
+			{% endfor %}
+//                {
+//                label: "Series1", data: 50
+//            }, {
+//                label: "Series2", data: 30
+//            }, {
+//                label: "Series3", data: 90
+//            }, {
+//                label: "Series4", data: 70
+//            }, {
+//                label: "Series5", data: 80
+//            }, {
+//                label: "Series6", data: 110
+//            }, {
+//                label: "Series9", data: 90
+//            }
+		];
+
+		// Init Chart
+		$('#jq-flot-pie').pixelPlot(doughnutChartData, {
+			series: {
+				pie: {
+					show: true,
+					radius: 1,
+					innerRadius: 0.5,
+					label: {
+						show: true,
+						radius: 3 / 4,
+						formatter: function (label, series)
+						{
+							return '<div style="font-size:14px;text-align:center;padding:2px;color:white;">' + Math.round(series.percent) + '%</div>';
+						},
+						background: { opacity: 0 }
+					}
+				}
+			}
+		}, {
+			height: 205
+		});
+	});
+</script>
+<!-- / Javascript -->
+
+<div class="panel">
+	<div class="panel-heading">
+            <span class="panel-title">
+                <i class="panel-title-icon fa fa-tasks"></i>
+                Repartition des films par categorie</span>
+	</div>
+	<div class="panel-body">
+
+
+		<div class="graph-container">
+			<div id="jq-flot-pie">
+
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /10. $FLOTJS_PIE -->

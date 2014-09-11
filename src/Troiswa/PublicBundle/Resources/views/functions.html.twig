@@ -1,0 +1,11 @@
+{% macro hello() %}
+
+	<p>hello</p>
+
+{% endmacro %}
+
+{% import_self as function %}
+
+{% import TroiswaPublicBundle:Macro:functions.html.twig as function %}
+
+{{ function.hello() }}

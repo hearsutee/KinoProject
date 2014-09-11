@@ -1,0 +1,102 @@
+<div id="main-menu" role="navigation">
+	<div id="main-menu-inner">
+		<div class="menu-content animated fadeIn">
+			<br/>
+			<a href="#" class="close">&times;</a>
+
+			<div>
+				{% block FOSisConnected %}
+
+					{% if app.user is not null %}
+						<br/><br/>
+
+						<div class="text-success">
+                                <span class="text-bold">
+                                    {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}
+                                </span>
+						</div>
+
+
+						<a class="btn btn-danger btn-block btn-outline " href="{{ path('fos_user_security_logout') }}">
+							{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+						</a>
+
+						<div class="text-bg">
+							<span class="text-slim">Welcome,</span>
+                        <span class="text-semibold">
+                            {{ app.user.username }}
+                        </span>
+						</div>
+					{% else %}
+						<br/><br/>
+						<div class="text-bg">
+                                <span class="text-bold">
+                                    <a class="btn btn-danger btn-block btn-outline "
+                                       href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+                                </span>
+						</div>
+
+					{% endif %}
+
+					{#
+					{% for type, messages in app.session.flashbag.all() %}
+						{% for message in messages %}
+							<div class="flash-{{ type }}">
+								{{ message }}
+							</div>
+						{% endfor %}
+					{% endfor %}
+					#}
+
+				{% endblock FOSisConnected %}
+				<div>
+
+
+					<div class="btn-group">
+						<a href="#" class="btn btn-xs btn-primary btn-outline dark"><i class="fa fa-envelope"></i></a>
+						<a href="#" class="btn btn-xs btn-primary btn-outline dark"><i class="fa fa-user"></i></a>
+						<a href="#" class="btn btn-xs btn-primary btn-outline dark"><i class="fa fa-cog"></i></a>
+						<a href="#" class="btn btn-xs btn-danger btn-outline dark"><i class="fa fa-power-off"></i></a>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<ul class="navigation">
+
+			{#Home :#}
+			<li>
+				<a href="{{ path('troiswa_public_homepage') }}"><i class="menu-icon fa fa-home"></i><span
+							class="mm-text">Home</span></a>
+			</li>
+
+			{#les films :#}
+			<li>
+				<a href="{{ path('troiswa_public_films') }}"><i class="menu-icon fa fa-film"></i><span class="mm-text">Tous les Films</span></a>
+			</li>
+
+			{#les acteurs :#}
+			<li>
+				<a href="{{ path('troiswa_public_actors') }}"><i class="menu-icon fa fa-users"></i><span
+							class="mm-text">Tous les acteurs</span></a>
+			</li>
+
+			<li>
+				<a href="index.html"><i class="menu-icon fa fa-dashboard"></i><span class="mm-text">Dashboard</span></a>
+			</li>
+			<li class="mm-dropdown">
+				<a href="#"><i class="menu-icon fa fa-th"></i><span class="mm-text">Layouts</span></a>
+				<ul>
+					<li>
+						<a tabindex="-1" href="layouts-grid.html"><span class="mm-text">Grid</span></a>
+					</li>
+					<li>
+						<a tabindex="-1" href="layouts-main-menu.html"><i class="menu-icon fa fa-th-list"></i><span
+									class="mm-text">Main menu</span></a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</div>

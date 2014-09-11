@@ -1,0 +1,184 @@
+{% extends 'TroiswaPublicBundle::layout.html.twig' %}
+
+{% block content %}
+
+	{% if leFilm is not empty %}
+
+		{% if seances is not empty %}
+
+
+			{#<div class="row well">#}
+			{#<div class="dropdown">#}
+			{#<a class="dropdown-toggle btn btn-primary" data-toggle="dropdown" data-hover="dropdown" href="#">#}
+			{#Voir les Seances<span class="caret"></span>#}
+			{#</a>#}
+			{#<ul class="dropdown-menu">#}
+			{#{% for seance in seances %}#}
+			{#<li><a class="" href="#">{{ seance.getCinema.nom }}</a></li>#}
+			{#{% endfor %}#}
+			{#</ul>#}
+			{#</div>#}
+			{#</div>#}
+
+
+
+			{#<form action="#}
+			{#{{ path('troiswa_public_OneFilmSeances', {'unFilm_id' : leFilm.id }) }}#}
+			{#">#}
+			{#<input id="search" type="number" name="cp" placeholder="Chercher seances par code postal">#}
+			{#<input type="submit" name="submit"/>#}
+			{#</form>#}
+
+
+
+			<div id="resultats_recherche">
+
+				<div class="col-md-6">
+					{{ render(controller("TroiswaPublicBundle:Seance:displaySeancesByCp", { 'unFilm_id': leFilm.id })) }}
+				</div>
+			</div>
+
+		{% else %}
+
+
+			<div class="well">
+				Pas de seances pour ce film.
+
+				{# AFAIRE ajouter bouton pour ajouter une seance#}
+			</div>
+
+
+
+
+		{% endif %}
+		<div class="col-md-12 well">
+			<h1 class="fa fa-film"> {{ leFilm.titre }}</h1>
+		</div>
+
+
+		<div class="row">
+
+			<div class="col-md-3">
+				{% if leFilm.image is not empty %}
+					<div class="image">
+						<img class="img img-thumbnail" src="{{ asset(leFilm.image.getWebPath() ) }}"
+						     style="width:280px; height:auto">
+					</div>
+				{% else %}
+					<div class="image">
+						pas d'image pour ce film
+					</div>
+				{% endif %}
+
+				<div class="row well">
+					<a class="pull-left btn btn-primary btn-md btn-labeled"
+					   href="{{ path('troiswa_public_editFilm', {'unFilm_id' :leFilm.id }) }}">
+						<span class="btn-label icon fa fa-pencil"></span>
+						Modifier
+					</a>
+
+					<a class="pull-left btn btn-primary btn-md btn-labeled"
+					   href="{{ path('troiswa_public_deleteFilm', {'unFilm_id' :leFilm.id }) }}">
+						<span class="btn-label icon fa fa-times"></span>
+						Supprimer
+					</a>
+				</div>
+
+
+			</div>
+
+
+			<div class="well col-md-9 ">
+				<h4>Synopsis :</h4> {{ leFilm.contenu | raw }}
+				<br/>
+				<br/>
+				{% if leFilm.active == 1 %}
+					<button class="label label-success label-tag">visible</button>
+				{% else %}
+					<button class="label label-danger label-tag">non-visible</button>
+				{% endif %}
+
+				<br/>
+				<br/>
+			</div>
+
+		</div>
+
+		<div class="clear-fix"></div>
+
+		<div class="well">
+			<div class="fa fa-calendar">
+				Date de sortie : {{ leFilm.dateCreation | date('m/d/Y') }}
+
+			</div>
+		</div>
+
+
+
+
+
+		<div class="commentaires">
+
+
+			{% if leFilm.comments is not empty %}
+				<div class="timeline">
+					<!-- Timeline header -->
+
+
+					<!-- Timeline header -->
+					<div class="tl-header">Commentaires</div>
+
+
+
+					{% for comment in leFilm.comments %}
+						{# AFAIRE changer la date en datetime pour afficher les secondes #}
+						<div class="tl-entry">
+							<div class="tl-time">
+								{{ comment.dateCreation | date("d/m/Y") }}
+							</div>
+							<div class="tl-icon bg-info"><i class="fa fa-comment"></i></div>
+							<div class="panel tl-body">
+
+								<div style="margin-top: 10px;" class="text-sm">
+									<a href="#">{{ comment.auteur }}</a> au sujet du film : <a
+											href="#">{{ comment.film.titre }}</a>
+								</div>
+
+
+								<div class="well well-sm" style="margin: 6px 0 0 0;">{{ comment.contenu | raw }}</div>
+
+							</div>
+							<!-- / .tl-body -->
+						</div> <!-- / .tl-entry -->
+
+					{% endfor %}
+
+
+				</div> <!-- / .timeline -->
+			{% else %}
+				<p>pas de commentaires pour ce film</p>
+			{% endif %}
+
+
+		</div>
+
+		<div class="addcommentaire">
+
+			{{ render(controller('TroiswaPublicBundle:Comment:addComment' , {'film_id': leFilm.id } )) }}
+
+		</div>
+
+	{% else %}
+
+		<h1>Le film n'existe pas !</h1>
+
+	{% endif %}
+
+{% endblock content %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	<script src="{{ asset('bundles/troiswapublic/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
+
+{% endblock %}

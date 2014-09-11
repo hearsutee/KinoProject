@@ -1,0 +1,46 @@
+{% extends 'TroiswaPublicBundle::layout.html.twig' %}
+
+
+
+{% block content %}
+
+
+
+	{% for flash in app.session.flashbag.get('notice') %}
+		<div class="alert alert-success">
+			<h1>{{ flash }}</h1>
+		</div>
+
+	{% endfor %}
+
+	<h3>Ajouter un Tag :</h3>
+
+
+
+
+
+	{{ form_start(form,{'method':'POST','attr' : {'class':'panel form-horizontal'} }) }}
+
+	<div class="panel-body">
+		<div class="row form-group">
+			{{ form_label(form.titre,"tag :" ,{'label_attr': { 'class':'col-sm-3 control-label'} } ) }}
+
+			<div class="col-sm-9">
+				{{ form_widget(form.titre, {'attr': {'placeholder':'nom', 'class':'form-control '} } ) }}
+			</div>
+
+			{{ form_errors(form.titre) }}
+
+		</div>
+
+
+	</div>
+
+
+	{#en fermant un formulauire comme ceci Twig ajoute automatiquement les champs qui ne sont pas la..#}
+	{{ form_end(form) }}
+	{#sinon fermer en html normal..#}
+
+
+
+{% endblock %}

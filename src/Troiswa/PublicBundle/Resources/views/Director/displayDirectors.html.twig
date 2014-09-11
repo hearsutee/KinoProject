@@ -1,0 +1,112 @@
+{% extends 'TroiswaPublicBundle::layout.html.twig' %}
+
+{% block content %}
+
+	{% for flash in app.session.flashbag.get('supp') %}
+		<div class="alert alert-success">
+			<h1>{{ flash }}</h1>
+		</div>
+	{% endfor %}
+
+	<div class="table-success">
+
+		<div class="table-header">
+			<div class="table-caption">
+				Les realisateurs
+
+				{#pagination:#}
+				<div class="navigation">
+					{{ knp_pagination_render(realisateurs) }}
+				</div>
+
+			</div>
+		</div>
+
+
+		<table class="table table-bordered">
+			<thead>
+			<tr>
+				<th>photo</th>
+				<th>nom</th>
+				<th>date de naissance</th>
+				<th>films</th>
+				<th>actions</th>
+			</tr>
+			</thead>
+
+			<tbody>
+
+			{% for unrealisateur in realisateurs %}
+
+				<tr>
+					<td>
+						{# PHOTO : lien cliquable vers l'affichage de l'realisateur concerné : #}
+						<a href="{{ path('troiswa_public_OneDirector', {'unRealisateur_id' :unrealisateur.id }) }}">
+
+							{% if unrealisateur.image is not empty %}
+								<img src="{{ asset(unrealisateur.image.getWebPath() ) }}"
+								     style="width:100px; height:auto">
+							{% endif %}
+
+						</a>
+
+					</td>
+					<td>
+						{# NOM : lien cliquable vers l'affichage de l'realisateur concerné : #}
+						<a href="{{ path('troiswa_public_OneDirector', {'unRealisateur_id' :unrealisateur.id }) }}">
+							{{ unrealisateur.nom }}
+						</a>
+					</td>
+
+					{# NAISSANCE: #}
+					<td>{{ unrealisateur.naissance | date('m/d/Y') }}</td>
+
+
+					<td>
+						{# FILMS : lien cliquable vers l'affichage de l'realisateur concerné   : #}
+						{% for films in unrealisateur.films %}
+							{{ films.titre }}
+						{% endfor %}
+					</td>
+
+					<td>
+						{# ACTIONS :modifier, supprimer  : #}
+
+						<button class="label  ">
+							<a href="{{ path('troiswa_public_editDirector', {'unRealisateur_id' :unrealisateur.id}) }}">Modifier</a>
+						</button>
+
+						<button class="label  ">
+							<a onclick="return(confirm('Etes-vous sûr de vouloir supprimer cette entrée?'));"
+							   href="{{ path('troiswa_public_deleteDirector', {'unRealisateur_id' :unrealisateur.id }) }}">Supprimer</a>
+						</button>
+
+					</td>
+
+
+
+					{#{% if unrealisateur.active == 1 %}#}
+					{#<td class="center"><button class="label label-success label-tag">visible</button></td>#}
+					{#{% else %}#}
+					{#<td class="center"><button class="label label-danger label-tag">non-visible</button></td>#}
+					{#{% endif %}#}
+
+				</tr>
+
+			{% endfor %}
+
+			</tbody>
+		</table>
+
+
+	</div>
+
+
+
+
+
+
+
+
+
+{% endblock %}

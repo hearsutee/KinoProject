@@ -1,0 +1,35 @@
+<div class="timeline">
+	<!-- Timeline header -->
+
+
+	<!-- Timeline header -->
+	<div class="tl-header">Commentaires</div>
+
+
+
+	{% for comment in leFilm.comments %}
+
+		{#<h1>hello</h1>#}
+		<div class="tl-entry">
+			<div class="tl-time">
+				9:02 pm
+			</div>
+			<div class="tl-icon bg-info"><i class="fa fa-comment"></i></div>
+			<div class="panel tl-body">
+				<a href="#">John Doe</a> posted a comment on <a href="#"> Un film </a>
+
+				<div style="margin-top: 10px;" class="text-sm">
+					<img src="assets/demo/avatars/3.jpg" alt="" class="rounded"
+					     style=" width: 20px;height: 20px;margin-top: -2px;">&nbsp;&nbsp;<a href="#">Michelle
+					                                                                                 Bortz</a> commented
+					                                                         2 days ago
+					<div class="well well-sm" style="margin: 6px 0 0 0;">{{ comments.contenu | raw }}</div>
+				</div>
+			</div>
+			<!-- / .tl-body -->
+		</div> <!-- / .tl-entry -->
+
+	{% endfor %}
+
+
+</div> <!-- / .timeline -->

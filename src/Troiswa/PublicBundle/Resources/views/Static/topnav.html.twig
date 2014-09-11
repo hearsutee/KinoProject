@@ -1,0 +1,97 @@
+<div id="main-navbar" class="navbar navbar-inverse" role="navigation">
+	<button type="button" id="main-menu-toggle"><i class="navbar-icon fa fa-bars icon"></i><span class="hide-menu-text">HIDE MENU</span>
+	</button>
+
+	<div class="navbar-inner ">
+		<div class="navbar-header">
+
+			<a id="link_logo" style="padding-left: 5px;" href="/app.php/" class="navbar-brand">
+				<strong style="margin-left: 3px;">Kino</strong>Project
+			</a>
+
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+			        data-target="#main-navbar-collapse"><i class="navbar-icon fa fa-bars"></i></button>
+
+		</div>
+
+		<div id="main-navbar-collapse" class="collapse navbar-collapse main-navbar-collapse">
+			<div>
+
+				<ul id="topnav" class="nav navbar-nav">
+
+
+					{#=================================================Liens Menu==============================================================================================#}
+					<li class="dropdown">
+						<a class="dropdown-toggle fa fa-film" data-toggle="dropdown" data-hover="dropdown" href="#">
+							Films<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a class="" href="{{ path('troiswa_public_addFilm') }}">Ajouter un film</a></li>
+							<li><a class="" href="{{ path('troiswa_public_films') }}">Tous les films</a></li>
+						</ul>
+					</li>
+
+					<li class="dropdown">
+						<a class="dropdown-toggle fa fa-users" data-toggle="dropdown" data-hover="dropdown" href="#">
+							Acteurs<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a class="" href="{{ path('troiswa_public_addActor') }}">Ajouter un acteur</a></li>
+							<li><a class="" href="{{ path('troiswa_public_actors') }}">Tous les acteurs</a></li>
+						</ul>
+					</li>
+
+					<li class="dropdown">
+						<a class="dropdown-toggle fa fa-bullhorn" data-toggle="dropdown" data-hover="dropdown" href="#">
+							Realisateurs<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a class="" href="{{ path('troiswa_public_addDirector') }}">Ajouter un realisateur</a>
+							</li>
+							<li><a class="" href="{{ path('troiswa_public_directors') }}">Tous les realisateurs</a></li>
+						</ul>
+					</li>
+
+
+					<li class="dropdown">
+						<a class="dropdown-toggle fa fa-desktop" data-toggle="dropdown" data-hover="dropdown" href="#">
+							Cinemas<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a class="" href="{{ path('troiswa_public_addCinema') }}">Ajouter un cinema</a></li>
+							<li><a class="" href="{{ path('troiswa_public_cinemas') }}">Tous les cinemas</a></li>
+
+						</ul>
+					</li>
+
+					<li class="dropdown">
+						<a class="dropdown-toggle fa fa-desktop" data-toggle="dropdown" data-hover="dropdown" href="#">
+							Utilisateurs<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+
+							<li><a class="" href="{{ path('troiswa_public_allComments') }}">Tous les commentaires</a>
+							</li>
+
+						</ul>
+					</li>
+
+				</ul>
+
+
+				<div class="right clearfix">
+					<ul class="nav navbar-nav pull-right right-navbar-nav">
+
+						<li>
+							<form class="navbar-form pull-left">
+								<input type="text" class="form-control" placeholder="Search">
+							</form>
+						</li>
+					</ul>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+</div>

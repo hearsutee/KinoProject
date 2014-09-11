@@ -1,0 +1,24 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+	{% block topNav %}
+		{% include 'TroiswaPublicBundle:Static:topnav.html.twig' %}
+	{% endblock %}
+
+	{% block sideNav %}
+		{% include 'TroiswaPublicBundle:Static:sidenav.html.twig' %}
+	{% endblock %}
+
+	<div id="content-wrapper">
+
+
+		{% block content %}
+
+		{% endblock %}
+	</div>
+
+
+	<div id="main-menu-bg"></div>
+
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends 'TroiswaPublicBundle::layout.html.twig' %}
+
+{% block content %}
+
+
+
+	{% for flash in app.session.flashbag.get('notice') %}
+		<div class="alert alert-success">
+			<h1>{{ flash }}</h1>
+		</div>
+
+	{% endfor %}
+
+	<h3>Ajouter un film :</h3>
+
+
+
+
+
+	{{ form_start(form,{'method':'POST','attr' : {'class':'panel form-horizontal'} }) }}
+
+	<div class="panel-body">
+		<div class="row form-group">
+			{{ form_label(form.titre,'Titre du film :',{'label_attr': { 'class':'col-sm-3 control-label'} } ) }}
+			<div class="col-sm-9">
+				{{ form_widget(form.titre, {'attr': {'placeholder':'Titre', 'class':' form-control '} } ) }}
+			</div>
+
+			{{ form_errors(form.titre) }}
+		</div>
+
+
+		<div class="row form-group">
+			{{ form_label(form.image.file,"image :" ,{'label_attr': { 'class':'col-sm-3 control-label'} } ) }}
+			<div class="col-sm-9">
+				{{ form_widget(form.image.file, {'attr': {'placeholder':'photo', 'class':'form-control '} } ) }}
+			</div>
+
+			{{ form_errors(form.image.file) }}
+		</div>
+
+		<div class="row form-group">
+			{{ form_label(form.contenu , 'Synopsis :' ,{'label_attr': { 'class':' col-sm-3 control-label'} } ) }}
+			<div class="col-sm-9">
+				{{ form_widget(form.contenu, {'attr': {'placeholder':'Synopsis', 'class':'ckeditor form-control '} } ) }}
+			</div>
+			{{ form_errors(form.contenu) }}
+		</div>
+
+
+		<div class="row form-group">
+			{{ form_label(form.dateCreation , 'date de sortie : ' , {'label_attr': { 'class':'col-sm-3 control-label'} } ) }}
+			<div class="col-sm-9">
+				{{ form_widget(form.dateCreation, {'attr': {'placeholder':'date de sortie exemple : 28/06/1999', 'class':'form-control '} } ) }}
+			</div>
+
+			{{ form_errors(form.dateCreation) }}
+		</div>
+
+		<div class="row form-group">
+			{{ form_label(form.active , 'film apparent ? : ' , {'label_attr': { 'class':'col-sm-3 control-label'} } ) }}
+			<div class="col-sm-1">
+				{{ form_widget(form.active, {'attr': { 'class':'form-control '} } ) }}
+			</div>
+
+			{{ form_errors(form.active) }}
+		</div>
+
+		<div class="row form-group">
+			{{ form_label(form.categories , 'categorie : ' , {'label_attr': { 'class':'col-sm-3 control-label'} } ) }}
+			<div class="col-sm-6">
+				{{ form_widget(form.categories, {'attr': { 'class':' '} } ) }}
+			</div>
+
+			{{ form_errors(form.categories) }}
+		</div>
+
+
+		<div id="select2-colors-examples">
+			{{ form_label(form.acteurs , 'cliquez dans le cadre pour choisir des acteurs : ' , {'label_attr': { 'class':'col-sm-3 control-label'} } ) }}
+			<div class="select2-success">
+				{{ form_widget(form.acteurs, {'attr': {'class':'form-control '} } ) }}
+			</div>
+
+			{{ form_errors(form.acteurs) }}
+
+			<br/>
+			<br/>
+
+		</div>
+
+		<div id="select2-colors-examples">
+			{{ form_label(form.tags , 'tags : ' , {'label_attr': { 'class':'col-sm-3 control-label'} } ) }}
+			<div class="select2-success">
+				{{ form_widget(form.tags, {'attr': {'class':'form-control '} } ) }}
+			</div>
+
+			{{ form_errors(form.tags) }}
+
+			<br/>
+			<br/>
+
+		</div>
+
+
+		<div class="row form-group">
+			<div class="col-sm-6">
+				{{ form_widget(form.Ajouter, {'attr': { 'class':'btn btn-primary'} }) }}
+			</div>
+
+		</div>
+
+	</div>
+
+
+	{#en fermant un formulauire comme ceci Twig ajoute automatiquement les champs qui ne sont pas la..#}
+	{{ form_end(form) }}
+	{#sinon fermer en html normal..#}
+
+
+
+
+
+	{#<div class=''>#}
+	{#{% for article in articles %}#}
+
+	{#<p>{{ article.dateCreation|date('Y-m-d') }}</p><br>#}
+	{#<p>{{ article.titre }}</p><br>#}
+	{#<p>{{ article.contenu }}</p><br>#}
+	{#<hr>#}
+
+	{#{% endfor %}#}
+	{#</div>#}
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	<script src="{{ asset('bundles/troiswapublic/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
+
+{% endblock %}

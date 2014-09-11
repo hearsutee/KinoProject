@@ -1,0 +1,223 @@
+{% extends 'TroiswaPublicBundle::layout.html.twig' %}
+
+{% block content %}
+
+
+	<ul class="breadcrumb breadcrumb-page">
+		<div class="breadcrumb-label text-light-gray">You are here:</div>
+		<li><a href="#">Home</a></li>
+		<li class="active"><a href="#">Dashboard</a></li>
+	</ul>
+	<div class="page-header">
+
+		<div class="row">
+			<!-- Page header, center on small screens -->
+			{#<h1 class="col-xs-12 col-sm-4 text-center text-right-sm"><i class="fa fa-dashboard page-header-icon"></i>&nbsp;&nbsp;Dashboard#}
+			{#</h1>#}
+
+			<div class="col-xs-12 col-sm-8">
+				<div class="row">
+					<hr class="visible-xs no-grid-gutter-h">
+					{#<!-- "Create project" button, width=auto on desktops -->#}
+					{#<div class="pull-right col-xs-12 col-sm-auto">#}
+					{#<a href="#" class="btn btn-primary btn-labeled"#}
+
+					{#style="width: 100%;">#}
+					{#<span class="btn-label icon fa fa-plus"></span>Ajouter un Film#}
+					{#</a>#}
+
+					{#</div>#}
+
+					<!-- Margin -->
+					<div class="visible-xs clearfix form-group-margin"></div>
+
+					<!-- BIG RECHERCHE ================================================================-->
+
+					<div class="well row">
+						<h1><i class="fa fa-search page-header-icon"></i>&nbsp;&nbsp;Search results</h1>
+
+
+						<!-- Panel -->
+						<div class="panel search-panel">
+
+							<!-- Search form -->
+							<form id="searchForm" method="GET" action="{{ path('troiswa_public_mainSearch') }}"
+							      class="search-form bg-primary" autocomplete="off">
+								<div class="input-group input-group-lg">
+									<span class="input-group-addon no-background"><i class="fa fa-search"></i></span>
+
+									<input type="text" id="recherche" name="recherche" class="form-control"
+									       placeholder="Type your search here...">
+
+                                    <span class="input-group-btn">
+                                        <button class="btn" type="submit">Search</button>
+                                    </span>
+								</div>
+								<!-- / .input-group -->
+							</form>
+							<!-- / Search form -->
+
+							<!-- Search results -->
+							<!-- Tabs -->
+
+							<!-- / Tabs -->
+
+							<!-- Classic search -->
+
+							{% if resultats is defined %}
+
+								<div class="search-tabs">
+
+									<ul class="nav nav-tabs">
+
+
+										<li class="active">
+											<a href="#films" data-toggle="tab">Films<span
+														class="label label-primary">{{ resultats.resFilms | length }}</span></a>
+										</li>
+										<li>
+											<a href="#actors" data-toggle="tab">Acteurs<span
+														class="label label-success">{{ resultats.resActors | length }}</span></a>
+										</li>
+
+									</ul>
+									<div class="tab-content">
+										<div class="tab-pane fade active in" id="films">
+											<div class="list-group">
+												{% for f in resultats.resFilms %}
+
+													<a href="{{ path('troiswa_public_OneFilm', {'unFilm_id' : f.id }) }}"
+													   class="list-group-item ">
+														<h4 class="list-group-item-heading">{{ f.titre }}</h4>
+														{#<p class="list-group-item-text">{{ r.contenu }}</p>#}
+													</a>
+
+
+
+												{% endfor %}
+											</div>
+										</div>
+
+										<div class="tab-pane fade in" id="actors">
+											<div class="list-group">
+												{% for a in resultats.resActors %}
+
+													<a href="{{ path('troiswa_public_OneActor', {'unActeur_id' : a.id }) }}"
+													   class="list-group-item ">
+														<h4 class="list-group-item-heading">{{ a.nom }}</h4>
+														{#<p class="list-group-item-text">{{ r.contenu }}</p>#}
+													</a>
+
+
+
+												{% endfor %}
+											</div>
+										</div>
+
+									</div>
+
+
+								</div>
+							{% endif %}
+
+							<!-- / Classic search -->
+
+							<!--  A Faire -->
+
+							{#...#}
+
+							<!-- / A Faire-->
+
+
+							<!--  A Faire -->
+
+							{#...#}
+
+							<!-- / A Faire-->
+
+
+						</div>
+						{#/  </div id="vanish">  #}
+
+					</div>
+					<!-- End BIG RECHERCHE ================================================================-->
+				</div>
+			</div>
+		</div>
+	</div>
+	</div> <!-- / .page-header -->
+
+
+	{#======================================LES WIDGETS==================================================#}
+	<div class="row">
+
+		<div class="col-md-4">
+			{{ render(controller("TroiswaPublicBundle:Main:globalStatsWidget")) }}
+		</div>
+
+		<div class="col-md-6">
+			{{ render(controller("TroiswaPublicBundle:Main:categoriesWidget")) }}
+		</div>
+	</div>
+
+
+	<div class="col-md-6">
+		{{ render(controller("TroiswaPublicBundle:Main:commentWidget")) }}
+	</div>
+
+
+
+
+
+{% endblock %}
+
+	{% block javascripts %}
+		{{ parent() }}
+		<script>
+
+
+			//		$(document).ready(function (e)
+			//		{
+			//			$("#recherche").keyup(function ()
+			//			{
+			//
+			//				var word = $(this).val();
+			//				var url = $("#searchForm").attr('action');
+			////                console.log(url);
+			//				var form = $('#searchForm');
+			//				$.ajax({
+			//					url: url,
+			//					dataType: "json",
+			//					data: "search=" + word
+			//				}).done(function (data)
+			//						{
+			//
+			//
+			//
+			//
+			////                        $('.ul').remove();
+			////
+			////
+			////                    if(data.length > 0)
+			////                    {
+			//////
+			////                        var ul = $('<ul class="ul">');
+			////
+			////                        for(var i = 0 ; i < data.length ; i++)
+			////                        {
+			////	                        var id =  data[i]['id'];
+			//////                            var li = '<li><a href="' +  +'">' + data[i]['titre']  '</a></li>' ;
+			////
+			////                            ul.append(li);
+			////                        }
+			////                        form.after(ul);
+			////
+			//
+			//						}
+			//			})
+			//		})
+			//		})
+		</script>
+
+		/
+	{% endblock javascripts %}

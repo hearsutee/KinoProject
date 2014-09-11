@@ -1,0 +1,11 @@
+FILM ---> ACTEUR   unidirectionel
+
+pour recup les acteur d'un film :
+soit mettre la relation en Bi direct,
+
+soit requete DQL :
+
+SELECT a
+FROM XXXXbundle:Acteur a
+JOIN XXXXbundle:Film
+WITH f.acteurs = a
