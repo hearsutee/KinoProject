@@ -8,6 +8,7 @@ use Troiswa\PublicBundle\Form\CinemaType;
 
 class CinemaController extends AbstractController
 {
+
     //affichage tous les cinemas
     public function displayAction()
     {
@@ -47,9 +48,8 @@ class CinemaController extends AbstractController
 
         $form = $this->createForm(new CinemaType(), $cinema)
             ->add('Ajouter', 'submit');
-//
 
-//        on clone le formulaire à l'état vide:
+        //on clone le formulaire à l'état vide:
         $formCloned = clone $form;
 
         $form->handleRequest($request);
@@ -63,24 +63,13 @@ class CinemaController extends AbstractController
             $em->persist($cinema);
             $em->flush();
 
-//            on vide le formulaire:
+            //on vide le formulaire:
             $form = $formCloned;
 
             $this->get('session')->getFlashBag()->add('notice', 'Votre cinema à bien eté ajouté !');
 
         }
-//        else
-//        {
-//            $validator = $this->get('validator');
-//            $errors = $validator->validate($form);
-//            foreach($errors as $e)
-//            {
-//                echo $e->getMessage();
-//                echo '<br>';
-//            }
-//
-//            echo('form invalide');
-//        }
+
         return $this->render('TroiswaPublicBundle:Cinema:addCinema.html.twig', array( 'form' => $form->CreateView() ));
 
     }
@@ -105,7 +94,6 @@ class CinemaController extends AbstractController
             //$request contient toutes les variables globales.
             //On parcour le Tableau request->File->get('troiswa_publicbundle_actor')['picture']['file']
             //Si il y a une image Dans file
-
 
             $picture = $request->files->get('troiswa_publicbundle_actor');
             if ($picture['image']['file']) {
