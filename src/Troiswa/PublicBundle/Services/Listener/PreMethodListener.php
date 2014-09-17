@@ -7,7 +7,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class PreMethodListener
 {
-    public function PreMethod(FilterControllerEvent $event)
+    public function preMethod(FilterControllerEvent $event)
     {
         if (HttpKernelInterface::MASTER_REQUEST == $event->getRequestType()) {
             $controller = $event->getController(); //renvoi un tableau avec un seul resultat...
