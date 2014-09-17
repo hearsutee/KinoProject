@@ -96,7 +96,6 @@ class CommentController extends AbstractController
 
         $this->get('session')->getFlashBag()->add('supp', 'le commentaire  à eté supprimé !');
 
-//        return $this->render('TroiswaPublicBundle:Film:displayFilms.html.twig');
         return $this->redirect($this->generateUrl('troiswa_public_films'));
     }
 }
