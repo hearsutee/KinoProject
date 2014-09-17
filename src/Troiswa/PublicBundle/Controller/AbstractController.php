@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class AbstractController extends Controller
 {
     //function pagination pour class controller filles
-    public function pagination($data, $limit)
+    protected function pagination($data, $limit)
     {
         $pagination = $this->get('knp_paginator');
 
