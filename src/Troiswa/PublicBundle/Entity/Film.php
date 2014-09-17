@@ -76,7 +76,7 @@ class Film
     private $image;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Troiswa\PublicBundle\Entity\Director", inversedBy="films")
+     * @ORM\ManyToMany(targetEntity="Troiswa\PublicBundle\Entity\Director", mappedBy="films")
      * @ORM\JoinColumn(name="films")
      */
     private $realisateurs;

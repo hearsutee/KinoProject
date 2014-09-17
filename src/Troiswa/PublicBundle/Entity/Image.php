@@ -151,7 +151,7 @@ class Image
 
     public function getUploadRootDir()
     {
-        return __DIR__ . '/../../../../web/upload/' . $this->folder . '/'; //on est dans entity
+        return getRootDir() . '/../../../../web/upload/' . $this->folder . '/'; //on est dans entity
     }
 
     public function getUploadDir()

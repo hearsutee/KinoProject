@@ -18,32 +18,27 @@ class FilmController extends AbstractController
         //trois requetes pour chaque statut de film (en fonciton de la date de sortie) pour affichage          dans la vue tabs :
 
         //films à venir
-        $prochainement = $em->getRepository('TroiswaPublicBundle:Film')
-            ->findFandCprochainememt();
+        $prochainement = $em->getRepository('TroiswaPublicBundle:Film')->findFandCprochainememt();
 
         //films à l'affiche
-        $affiche = $em->getRepository('TroiswaPublicBundle:Film')
-            ->findFandCaffiche();
+        $affiche = $em->getRepository('TroiswaPublicBundle:Film')->findFandCaffiche();
 
         //films archivés
-        $archive = $em->getRepository('TroiswaPublicBundle:Film')
-            ->findFandCarchive();
+        $archive = $em->getRepository('TroiswaPublicBundle:Film')->findFandCarchive();
 
-        foreach ($affiche as $film) {
-            if (null != $film->getImage()) {
+        foreach($affiche as $film) {
+            if(null != $film->getImage()) {
                 $film->getImage()->setFolder('Film');
             }
         }
-        foreach ($archive as $film) {
-            if(null != $film->getImage())
-
-            {
+        foreach($archive as $film) {
+            if(null != $film->getImage()) {
                 $film->getImage()->setFolder('Film');
             }
         }
 
-        foreach ($prochainement as $film) {
-            if (null != $film->getImage()) {
+        foreach($prochainement as $film) {
+            if(null != $film->getImage()) {
                 $film->getImage()->setFolder('Film');
             }
         }
@@ -53,10 +48,7 @@ class FilmController extends AbstractController
         $archivePagin = $this->pagination($archive, 6);
         $affichePagin = $this->pagination($affiche, 6);
 
-        return $this->render('TroiswaPublicBundle:Film:displayFilms.html.twig', array(
-            'archive' => $archivePagin,
-            'prochainement' => $prochainementPagin,
-            'affiche' => $affichePagin ));
+        return $this->render('TroiswaPublicBundle:Film:displayFilms.html.twig', array( 'archive' => $archivePagin, 'prochainement' => $prochainementPagin, 'affiche' => $affichePagin ));
 
     }
 
@@ -67,16 +59,15 @@ class FilmController extends AbstractController
         //requete join 1 film ET ses commentaires :
         $leFilm = $this->getDoctrine()->getRepository('TroiswaPublicBundle:Film')->findFilmAndComments($unFilm_id);
 
-        if ($leFilm == null) {
+        if($leFilm == null) {
             throw $this->createNotFoundException('Film inexistant');
         }
 
-        if (null != $leFilm->getImage()) {
+        if(null != $leFilm->getImage()) {
             $leFilm->getImage()->setFolder('Film');
         }
 
-        $seances = $this->getDoctrine()->getRepository("TroiswaPublicBundle:Seance")
-            ->findByFilm($unFilm_id);
+        $seances = $this->getDoctrine()->getRepository("TroiswaPublicBundle:Seance")->findByFilm($unFilm_id);
 
         return $this->render('TroiswaPublicBundle:Film:displayOneFilm.html.twig', array( 'leFilm' => $leFilm, 'seances' => $seances ));
 
@@ -91,12 +82,12 @@ class FilmController extends AbstractController
 
             ->add('Ajouter', 'submit');
 
-//        on clone le formulaire à l'état vide:
+        //        on clone le formulaire à l'état vide:
         $formCloned = clone $form;
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if($form->isValid()) {
 
             $film->getImage()->setFolder('Film');
 
@@ -106,7 +97,7 @@ class FilmController extends AbstractController
             $em->persist($film);
             $em->flush();
 
-//            on vide le formulaire:
+            //            on vide le formulaire:
             $form = $formCloned;
 
             $this->get('session')->getFlashBag()->add('notice', 'Votre film à bien eté ajouté !');
@@ -122,7 +113,7 @@ class FilmController extends AbstractController
     {
         $leFilm = $this->getDoctrine()->getRepository('TroiswaPublicBundle:Film')->findOneById($unFilm_id);
 
-        if ($leFilm == null) {
+        if($leFilm == null) {
             throw $this->createNotFoundException('Film inexistant');
         }
 
@@ -131,7 +122,7 @@ class FilmController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if($form->isValid()) {
 
             $leFilm->getImage()->setFolder('Film');
 
@@ -153,40 +144,36 @@ class FilmController extends AbstractController
     {
         $leFilm = $this->getDoctrine()->getRepository('TroiswaPublicBundle:Film')->findOneById($unFilm_id);
 
-        if ($leFilm->getImage()) { // si ce film à bien une image :
+        if($leFilm->getImage()) { // si ce film à bien une image :
             $leFilm->getImage()->setFolder('Film');
         }
 
         $seances = $this->getDoctrine()->getRepository('TroiswaPublicBundle:Seance')->findByFilm($unFilm_id);
 
-        foreach ($seances as $seance) {
-
-            $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
+        foreach($seances as $seance) {
             $em->remove($seance);
-            $em->flush();
-
         }
+        $em->flush();
 
         $comments = $this->getDoctrine()->getRepository('TroiswaPublicBundle:Comment')->findAllByFilm($unFilm_id);
 
-        foreach ($comments as $comment) {
 
-            $em = $this->getDoctrine()->getManager();
+        foreach($comments as $comment) {
             $em->remove($comment);
-            $em->flush();
-
         }
 
-        $em = $this->getDoctrine()->getManager();
+
         $em->remove($leFilm);
         $em->flush();
 
-        if ($request->isXmlHttpRequest()) {
+        if($request->isXmlHttpRequest()) {
             return new JsonResponse( true );
-        } else {
+        }
+        else {
 
             $this->get('session')->getFlashBag()->add('supp', 'le film à eté supprimé !');
-//        return $this->render('TroiswaPublicBundle:Film:displayFilms.html.twig');
+            //        return $this->render('TroiswaPublicBundle:Film:displayFilms.html.twig');
             return $this->redirect($this->generateUrl('troiswa_public_films'));
         }
 
