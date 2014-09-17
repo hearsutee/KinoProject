@@ -4,7 +4,10 @@
     "type": "project",
     "description": "The \"Symfony Standard Edition\" distribution",
     "autoload": {
-        "psr-0": { "": "src/", "SymfonyStandard": "app/" }
+        "psr-0": {
+            "": "src/",
+            "SymfonyStandard": "app/"
+        }
     },
     "require": {
         "php": ">=5.3.3",
@@ -17,7 +20,6 @@
         "symfony/monolog-bundle": "2.6",
         "sensio/distribution-bundle": "~3.0",
         "sensio/framework-extra-bundle": "~3.0",
-        "solilokiam/summernotebundle": "dev-master",
         "stof/doctrine-extensions-bundle": "~1.1@dev",
         "knplabs/knp-paginator-bundle": "~2.4",
         "imagine/imagine": "dev-master",

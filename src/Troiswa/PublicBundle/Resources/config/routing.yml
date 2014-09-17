@@ -71,9 +71,9 @@ troiswa_public_deleteFilm:
 
 #===============Director=================
 
-troiswa_public_galleryDirectors:
-        pattern:  /directors/gallery
-        defaults: { _controller: TroiswaPublicBundle:Image:displayAllDirectorsImages }
+#troiswa_public_galleryDirectors:
+#        pattern:  /directors/gallery
+#        defaults: { _controller: TroiswaPublicBundle:Image:displayAllDirectorsImages }
 
 troiswa_public_directors:
     pattern:  /directors
@@ -97,9 +97,9 @@ troiswa_public_deleteDirector:
 
     #===============Cinema=================
 
-troiswa_public_galleryCinemas:
-    pattern:  /cinemas/gallery
-    defaults: { _controller: TroiswaPublicBundle:Image:displayAllCinemasImages }
+#troiswa_public_galleryCinemas:
+#    pattern:  /cinemas/gallery
+#    defaults: { _controller: TroiswaPublicBundle:Image:displayAllCinemasImages }
 
 troiswa_public_cinemas:
     pattern:  /cinemas
@@ -134,9 +134,9 @@ troiswa_public_addTag:
 
 #===============Actor=================
 
-troiswa_public_galleryActors:
-        pattern:  /actors/gallery
-        defaults: { _controller: TroiswaPublicBundle:Image:displayAllActorsImages }
+#troiswa_public_galleryActors:
+#        pattern:  /actors/gallery
+#        defaults: { _controller: TroiswaPublicBundle:Image:displayAllActorsImages }
 
 troiswa_public_actors:
     pattern:  /actors

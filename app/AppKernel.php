@@ -19,7 +19,6 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Troiswa\PublicBundle\TroiswaPublicBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
-            new Solilokiam\SummernoteBundle\SolilokiamSummernoteBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new FOS\UserBundle\FOSUserBundle(),
@@ -30,7 +29,8 @@ class AppKernel extends Kernel
 //            new JMS\SerializerBundle\JMSSerializerBundle()
         );
 
-        if (in_array($this->getEnvironment(), array('dev', 'test'))) {
+        if(in_array($this->getEnvironment(), array( 'dev', 'test' )))
+        {
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
@@ -41,6 +41,6 @@ class AppKernel extends Kernel
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
+        $loader->load(__DIR__ . '/config/config_' . $this->getEnvironment() . '.yml');
     }
 }
