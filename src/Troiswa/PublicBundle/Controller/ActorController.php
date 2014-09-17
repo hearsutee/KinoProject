@@ -107,7 +107,7 @@ class ActorController extends AbstractController
             $picture = $request->files->get('troiswa_publicbundle_actor');
             if ($picture['image']['file']) {
                 $leActeur->getImage()->setOldNom($leActeur->getImage()->getNom());
-//                $leActeur->getImage()->setNom(' ');
+
             }
 
             $nom = $leActeur->getNom();
