@@ -81,10 +81,6 @@ stof_doctrine_extensions:
         default:
             sluggable: true
 
-solilokiam_summernote:
-    db_driver: orm
-    asset_class: Troiswa\PublicBundle\Entity\Actor
-    asset_path: solilokiam_summernote_bundle
 
 knp_paginator:
     page_range: 5                      # default page range used in pagination control
