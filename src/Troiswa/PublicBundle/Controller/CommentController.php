@@ -11,7 +11,7 @@ class CommentController extends AbstractController
     public function displayAllAction()
     {
         $allComments = $this->getDoctrine()->getRepository('TroiswaPublicBundle:Comment')->findAll();
-//die(\Doctrine\Common\Util\Debug::dump($allComments));
+
         $pagination = $this->pagination($allComments, 6);
 
         return $this->render('TroiswaPublicBundle:Comment:CommentsLayout.html.twig', array(
